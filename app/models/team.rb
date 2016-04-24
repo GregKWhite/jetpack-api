@@ -2,10 +2,11 @@
 #
 # Table name: public.teams
 #
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  name        :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  projects_id :integer
 #
 
 class Team < ActiveRecord::Base

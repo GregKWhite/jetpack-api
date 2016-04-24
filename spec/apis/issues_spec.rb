@@ -143,4 +143,27 @@ RSpec.describe 'Issue Requests', :no_auth, type: :api do
       end
     end
   end
+
+  describe 'PATCH /stories/:id/issues/order' do
+    context 'when an array of issues are given' do
+      let(:story) { FactoryGirl.create(Story) }
+      let!(:issue1) { FactoryGirl.create(Issue, story: story, order: 1) }
+      let!(:issue2) { FactoryGirl.create(Issue, story: story, order: 2) }
+
+      let(:json_data) { { 'issue_order' => [issue2.id, issue1.id] }.to_json }
+
+      it "should set the issues' order and return them in the order given" do
+        patch(
+          "/stories/#{story.id}/issues/order",
+          json_data,
+          'Content-Type' => 'application/json'
+        )
+
+        expect(response_body_json[0]['id']).to eq issue2.id.to_s
+        expect(response_body_json[0]['attributes']['order']).to eq 0
+        expect(response_body_json[1]['id']).to eq issue1.id.to_s
+        expect(response_body_json[1]['attributes']['order']).to eq 1
+      end
+    end
+  end
 end

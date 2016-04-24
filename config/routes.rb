@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   end
 
   resources :stories, only: [:show, :update, :destroy] do
-    resources :issues,  only: [:index, :create]
+    resources :issues,  only: [:index, :create] do
+      collection do
+        patch 'order'
+      end
+    end
   end
 
   resources :issues,  only: [:show, :update, :destroy] do

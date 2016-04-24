@@ -1,5 +1,5 @@
 class IssuesController < ApplicationController
-  before_action :set_issue, except: [:create, :index]
+  before_action :set_issue, except: [:create, :index, :order]
 
   def index
     render json: issue_parent.issues, include: 'assignee'
@@ -43,6 +43,11 @@ class IssuesController < ApplicationController
     render json: { errors: e.message }, status: :bad_request
   end
 
+  def order
+    new_order = API::IssueOrderer.new(JSON.parse(request.body.read)['issue_order']).call
+    render json: new_order, status: :ok
+  end
+
   private
 
   def user
@@ -70,7 +75,7 @@ class IssuesController < ApplicationController
   end
 
   def issue_fields
-    [:id, :description, :status, :points, :assignee_id].freeze
+    [:id, :description, :status, :points, :order, :project_id, :sprint_id, :story_id].freeze
   end
 
   def set_issue

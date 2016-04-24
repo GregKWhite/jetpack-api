@@ -10,6 +10,7 @@
 #  description :text
 #  points      :integer          default("1"), not null
 #  status      :string           default("todo")
+#  order       :integer
 #
 
 class Issue < ActiveRecord::Base

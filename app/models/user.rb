@@ -6,9 +6,9 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  team_id             :integer
+#  name                :string           not null
+#  github_id           :integer          not null
 #  token               :string
-#  name                :string
-#  github_id           :string
 #  github_access_token :string
 #  profile_picture_url :string
 #
